@@ -6,8 +6,15 @@ class User < ApplicationRecord
 
   has_many :questions
 
-  validates :email, :username, presence: true
-  validates :email, :username, uniqueness: true
+  validates :username, presence: true,               # наличие
+                       uniqueness: true,             # уникальность
+                       length: { maximum: 40 },      # длина юзернейма max 40 символов
+                       format: { with: /\A\w+\Z/ }   # формата юзернейма
+
+  validates :email, presence: true,
+                    uniqueness: true,
+                    format: { with: URI::MailTo::EMAIL_REGEXP }  # формат email
+
   validates :password, presence: true, on: :create
 
   attr_accessor :password
@@ -15,6 +22,15 @@ class User < ApplicationRecord
   validates_confirmation_of :password
 
   before_save :encrypt_password
+  before_validation :downcase_username, :downcase_email
+
+  def downcase_email
+    email.downcase!
+  end
+
+  def downcase_username
+    username.downcase!
+  end
 
   def encrypt_password
     if password.present?
