@@ -19,7 +19,7 @@ class User < ApplicationRecord
                     uniqueness: true,
                     format: { with: URI::MailTo::EMAIL_REGEXP }  # формат email
 
-  validates :password, confirmation: true, presence: true, on: :create,
+  validates :password, confirmation: true, presence: true, on: :create
   validates :password_confirmation, presence: true, on: :create
 
   def self.hash_to_string(password_hash)
@@ -57,10 +57,10 @@ class User < ApplicationRecord
   end
 
   def downcase_email
-    email.downcase!
+    email&.downcase!
   end
 
   def downcase_username
-    username.downcase!
+    username&.downcase!
   end
 end
