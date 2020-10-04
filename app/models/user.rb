@@ -4,10 +4,14 @@ class User < ApplicationRecord
   ITERATIONS = 20000
   DIGEST = OpenSSL::Digest::SHA256.new
 
+  attr_accessor :password
+
   has_many :questions
 
-  validates :username, presence: true,               # наличие
-                       uniqueness: true,             # уникальность
+  before_save :encrypt_password
+  before_validation :downcase_username, :downcase_email
+
+  validates :username, uniqueness: true,             # уникальность
                        length: { maximum: 40 },      # длина юзернейма max 40 символов
                        format: { with: /\A\w+\Z/ }   # формата юзернейма
 
@@ -15,22 +19,30 @@ class User < ApplicationRecord
                     uniqueness: true,
                     format: { with: URI::MailTo::EMAIL_REGEXP }  # формат email
 
-  validates :password, presence: true, on: :create
+  validates :password, confirmation: true, presence: true, on: :create,
+  validates :password_confirmation, presence: true, on: :create
 
-  attr_accessor :password
-
-  validates_confirmation_of :password
-
-  before_save :encrypt_password
-  before_validation :downcase_username, :downcase_email
-
-  def downcase_email
-    email.downcase!
+  def self.hash_to_string(password_hash)
+    password_hash.unpack('H*')[0]
   end
 
-  def downcase_username
-    username.downcase!
+  def self.authenticate(email, password)
+    user = find_by(email: email)
+
+    return unless user.present?
+
+    hashed_password = User.hash_to_string(
+      OpenSSL::PKCS5.pbkdf2_hmac(
+        password, user.password_salt, ITERATIONS, DIGEST.length, DIGEST
+      )
+    )
+
+    return unless hashed_password == user.password_hash
+
+    user
   end
+
+  private
 
   def encrypt_password
     if password.present?
@@ -44,23 +56,11 @@ class User < ApplicationRecord
     end
   end
 
-  def self.hash_to_string(password_hash)
-    password_hash.unpack('H*')[0]
+  def downcase_email
+    email.downcase!
   end
 
-  def self.authenticate(email, password)
-    user = find_by(email: email)
-
-    return nil unless user.present?
-
-    hashed_password = User.hash_to_string(
-      OpenSSL::PKCS5.pbkdf2_hmac(
-        password, user.password_salt, ITERATIONS, DIGEST.length, DIGEST
-      )
-    )
-
-    return nil unless hashed_password == user.password_hash
-
-    user
+  def downcase_username
+    username.downcase!
   end
 end
