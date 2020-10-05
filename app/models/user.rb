@@ -11,13 +11,14 @@ class User < ApplicationRecord
   before_save :encrypt_password
   before_validation :downcase_username, :downcase_email
 
-  validates :username, uniqueness: true,             # уникальность
-                       length: { maximum: 40 },      # длина юзернейма max 40 символов
-                       format: { with: /\A\w+\Z/ }   # формата юзернейма
+  validates :username, presence: true,
+                       uniqueness: true,
+                       length: { maximum: 40 },
+                       format: { with: /\A\w+\Z/ }
 
   validates :email, presence: true,
                     uniqueness: true,
-                    format: { with: URI::MailTo::EMAIL_REGEXP }  # формат email
+                    format: { with: URI::MailTo::EMAIL_REGEXP }
 
   validates :password, confirmation: true, presence: true, on: :create
   validates :password_confirmation, presence: true, on: :create
