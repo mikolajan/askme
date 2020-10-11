@@ -7,14 +7,20 @@
     <%= image_tag user_avatar(@user), class: 'user-image', alt: '[Фото]' %>
   </div>
 
-  <h2 class="title-small buffer-both">
+<!--   <h2 class="title-small buffer-both">
     #<%= @user.username %>
-  </h2>
+  </h2> -->
 
   <div class="user-ask-button container text-center">
     <%= link_to "Задать вопрос", '', class: 'button button-light', id: 'ask-button' %>
   </div>
+
+  <div class="user-statistics text-center">
+    Пользователю #<%= @user.username %>
+    <%= user_questions_count(@questions.count, 'вопросов на задавали, будьте первым!', 'задали') %><%= user_questions_count(@questions.reject(&:answer).count, ', нет вопросов без ответа!', ', осталось ответить на') %>
+  </div>
 </div>
+
 
 <div class="user-question-form-div column-1-4 column-1-4-right" id='ask-form'>
   <div class="user-question-form buffer-both">
@@ -34,6 +40,7 @@
     </div>
   </div>
 </div>
+
 
 <div class="column-3-4">
   <div class="user-questions buffer-both">

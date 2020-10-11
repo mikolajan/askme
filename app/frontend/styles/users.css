@@ -38,9 +38,9 @@
 }
 
 .user-statistics {
-  padding-top: 10px;
+  padding: 10px 0;
   margin-top: 10px;
-  border-top: 1px solid #D9E6E5;
+  border-top: 5px solid #aaaaaa;
 }
 
 .user-questions {
