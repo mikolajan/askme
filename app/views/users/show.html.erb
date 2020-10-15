@@ -3,6 +3,10 @@
     <%= @user.name %>
   </h1>
 
+  <div class="buffer-both">
+    <%= link_to 'редактировать профиль', edit_user_path(@user) if current_user == @user %>
+  </div>
+
   <div class="user-image-div">
     <%= image_tag user_avatar(@user), class: 'user-image', alt: '[Фото]' %>
   </div>
@@ -17,7 +21,7 @@
 
   <div class="user-statistics text-center">
     Пользователю #<%= @user.username %>
-    <%= user_questions_count(@questions.count, 'вопросов на задавали, будьте первым!', 'задали') %><%= user_questions_count(@questions.reject(&:answer).count, ', нет вопросов без ответа!', ', осталось ответить на') %>
+    <%= user_questions_count(@questions.count, 'вопросов на задавали, будьте первым!', 'задали') %><%= user_questions_count(@questions.reject(&:answer).count, '', ', осталось ответить на') %>
   </div>
 </div>
 
