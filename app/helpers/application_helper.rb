@@ -9,4 +9,8 @@ module ApplicationHelper
     number_of_question.zero? ? text_if_null :text_if_not_null + ' ' +
     Sklonenie.sklonenie(number_of_question, 'вопрос', 'вопроса', 'вопросов', number_of_question)
   end
+
+  def fa_icon(icon_class)
+    content_tag 'span', '', class: "fa fa-#{icon_class}"
+  end
 end

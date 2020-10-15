@@ -46,7 +46,6 @@ class UsersController < ApplicationController
 
   def authorize_user
     reject_user unless @user == current_user
-
   end
 
   def load_user
