@@ -8,7 +8,7 @@ class User < ApplicationRecord
 
   has_many :questions
 
-  before_save :encrypt_password, :user_color
+  before_save :encrypt_password
   before_validation :downcase_username, :downcase_email
 
   validates :email, presence: true,
