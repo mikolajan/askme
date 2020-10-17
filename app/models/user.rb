@@ -8,18 +8,19 @@ class User < ApplicationRecord
 
   has_many :questions
 
-  before_save :encrypt_password
+  before_save :encrypt_password, :user_color
   before_validation :downcase_username, :downcase_email
+
+  validates :email, presence: true,
+                    uniqueness: true,
+                    format: { with: URI::MailTo::EMAIL_REGEXP }
 
   validates :username, presence: true,
                        uniqueness: true,
                        length: { maximum: 40 },
                        format: { with: /\A\w+\Z/ }
 
-  validates :email, presence: true,
-                    uniqueness: true,
-                    format: { with: URI::MailTo::EMAIL_REGEXP }
-
+  validates :color, format: { with: /\A#[A-F0-9]{6}\Z/i }
   validates :password, confirmation: true, presence: true, on: :create
   validates :password_confirmation, presence: true, on: :create
 
