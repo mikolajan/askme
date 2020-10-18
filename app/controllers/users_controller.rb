@@ -7,20 +7,20 @@ class UsersController < ApplicationController
   end
 
   def new
-    redirect_to root_url, alert: 'Вы уже в системе' if current_user.present?
+    redirect_to root_path, alert: 'Вы уже в системе' if current_user.present?
 
     @user = User.new
   end
 
   def create
-    redirect_to root_url, alert: 'Вы уже в системе' if current_user.present?
+    redirect_to root_path, alert: 'Вы уже в системе' if current_user.present?
 
     @user = User.new(user_params)
 
     if @user.save
       session[:user_id] = @user.id
 
-      redirect_to root_url, notice: 'Вы успешно зарегистрированы!'
+      redirect_to root_path, notice: 'Вы успешно зарегистрированы!'
     else
       render :new
     end
@@ -29,7 +29,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy!
 
-    redirect_to root_url, notice: 'Пользователь удален!'
+    redirect_to root_path, notice: 'Пользователь удален!'
   end
 
   def edit
@@ -65,6 +65,6 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation,
-                                 :name, :username, :avatar_url, :color)
+                                 :name, :username, :avatar_path, :color)
   end
 end
