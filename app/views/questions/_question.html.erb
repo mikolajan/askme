@@ -1,6 +1,7 @@
 <div class="question">
   <div class="question-content">
     <div class="question-text text-lead">
+      <%= question.author.present? ? "#{question.author.name}(@#{question.author.username}) спрашивает: " : 'Анонимный вопрос: ' %>
       <%= question.text %>
     </div>
 
