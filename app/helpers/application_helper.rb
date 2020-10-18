@@ -2,7 +2,7 @@ require 'sklonenie'
 
 module ApplicationHelper
   def user_avatar(user)
-    user.avatar_url || asset_path('no_avatar.jpg')
+    user.avatar_url.present? ? user.avatar_url : asset_pack_path('media/images/no_avatar.png')
   end
 
   def user_questions_count(number_of_question, text_if_null, text_if_not_null)

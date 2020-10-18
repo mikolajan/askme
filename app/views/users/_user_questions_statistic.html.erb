@@ -1,0 +1,5 @@
+  <div class="user-statistics text-center">
+    Пользователю #<%= @user.username %>
+    <%= user_questions_count(@questions.count, 'вопросов на задавали, будьте первым!', 'задали') -%>
+    <%= user_questions_count(@questions.reject(&:answer).count, ', нет вопросов без ответа!', ', осталось ответить на') %>
+  </div>
