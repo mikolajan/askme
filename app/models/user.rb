@@ -20,7 +20,7 @@ class User < ApplicationRecord
                        length: { maximum: 40 },
                        format: { with: /\A\w+\Z/ }
 
-  validates :color, format: { with: /\A#[\h]{3}{1,2}\z/ }
+  validates :color, format: { with: /\A#\h{3}{1,2}\z/ }
 
   validates :password, confirmation: true, presence: true, on: :create
   validates :password_confirmation, presence: true, on: :create
