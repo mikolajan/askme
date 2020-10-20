@@ -1,9 +1,8 @@
 <div class="question">
   <div class="question-content">
     <div class="question-text text-lead">
-      <% if question.author_id.present? %>
-        <% user = User.find(question.author_id) %>
-        <%= (link_to "#{user.name}(@#{user.username})", user_path(user)) + " спрашивает: " %>
+      <% if question.author.present? %>
+        <%= link_to "#{question.author.name}(@#{question.author.username})", user_path(question.author) %><%= " спрашивает: " %>
       <% else %>
         <%= 'Анонимный вопрос: ' %>
       <% end %>
