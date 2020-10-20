@@ -1,5 +1,14 @@
-  <div class="user-statistics text-center">
-    Пользователю #<%= @user.username %>
-    <%= user_questions_count(@questions.count, 'вопросов на задавали, будьте первым!', 'задали') -%>
-    <%= user_questions_count(@questions.reject(&:answer).count, ', нет вопросов без ответа!', ', осталось ответить на') %>
-  </div>
+<div class="user-statistics text-center">
+  Пользователю #<%= @user.username %>
+  <% if @questions.count > 0 %>
+    <%= "задали #{Sklonenie.sklonenie(@questions.count, 'вопрос', 'вопроса', 'вопросов', @questions.count)}, " %>
+
+    <% if @questions.reject(&:answer).count > 0 %>
+      <%= "осталось ответить на #{Sklonenie.sklonenie(@questions.reject(&:answer).count, 'вопрос', 'вопроса', 'вопросов', @questions.reject(&:answer).count)}, " %>
+    <% else %>
+      <%= 'нет вопросов без ответа!' %>
+    <% end %>
+  <% else %>
+    <%= 'вопросов на задавали, будьте первым!' %>
+  <% end %>
+</div>
