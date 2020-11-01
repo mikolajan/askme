@@ -1,0 +1,9 @@
+<div class="tag buffer-both">
+  <h1>Список вопросов для тэга #<%= @tag.name %></h1>
+
+  <div class="tags-list">
+    <% @questions.each do |question| %>
+      <%= render partial: 'questions/question', object: question %>
+    <% end %>
+  </div>
+</div>
