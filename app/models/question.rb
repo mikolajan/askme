@@ -13,15 +13,9 @@ class Question < ApplicationRecord
   private
 
   def update_tags
-    question_tags.clear
-
-    "#{text} #{answer}".
-      downcase.
-      scan(Tag::TAG_REGEX).
-      uniq.
-      sort.
-      each do |tag|
-        tags << Tag.find_or_create_by(name: tag.delete('#'))
+    self.tags =
+      "#{text} #{answer}".downcase.scan(Tag::TAG_REGEX).uniq.map do |tag|
+        Tag.find_or_create_by(name: tag)
       end
   end
 end

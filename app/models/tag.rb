@@ -1,5 +1,5 @@
 class Tag < ApplicationRecord
-  TAG_REGEX = /#[\wа-яё]+/
+  TAG_REGEX = /(?<=\B#)[[:alnum:]_]+/
 
   has_many :question_tags
   has_many :questions, through: :question_tags
