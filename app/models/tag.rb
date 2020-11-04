@@ -5,7 +5,7 @@ class Tag < ApplicationRecord
   has_many :questions, through: :question_tags
 
   default_scope { order(name: :asc) }
-  # scope :with_questions, -> { joins(:questions).distinct }
+  scope :with_questions, -> { joins(:questions).distinct }
 
   before_validation { name&.downcase! }
 

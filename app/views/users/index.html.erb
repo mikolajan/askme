@@ -10,4 +10,8 @@
         </div>
       </div>
   <% end %>
+
+  <div class="buffer-top text-lead">
+    <%= @tags.map { |t| link_to "##{t.name}", tag_path(t.name) }.join(', ').html_safe %>
+  </div>
 </div>
