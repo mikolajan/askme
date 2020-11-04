@@ -8,7 +8,7 @@ class Question < ApplicationRecord
   validates :text, presence: true,
                    length: { maximum: 255 }
 
-  after_commit :update_tags, on: %i[create update]
+  after_save_commit :update_tags
 
   private
 
