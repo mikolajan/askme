@@ -1,6 +1,6 @@
 <div class="content-wrapper buffer-both text-center">
   <div class="buffer-both">
-    <h1 class="title-medium">Наши пользователи</h1>
+    <h1 class="title-medium">Наши пользователи:</h1>
   </div>
 
   <% @users.each do |user| %>
@@ -11,7 +11,11 @@
       </div>
   <% end %>
 
-  <div class="buffer-top text-lead">
+  <div class="buffer-top">
+    <h1 class="title-small">Хэштеги всех вопросов:</h1>
+  </div>
+
+  <div class="buffer-bottom text-lead">
     <%= @tags.map { |t| link_to "##{t.name}", tag_path(t.name) }.join(', ').html_safe %>
   </div>
 </div>

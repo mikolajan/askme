@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   def index
     @users = User.all
 
-    @tags = Tag.with_questions
+    @tags = Tag.with_questions.order(:name)
   end
 
   def new

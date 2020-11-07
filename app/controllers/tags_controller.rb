@@ -8,6 +8,6 @@ class TagsController < ApplicationController
   private
 
   def load_tag
-    @tag = Tag.find_by(name: params[:name])
+    @tag = Tag.find_by!(name: params[:name])
   end
 end
