@@ -7,6 +7,7 @@ gem 'rails', '~> 6.0.3', '>= 6.0.3.3'
 gem 'puma', '~> 4.1'
 
 gem 'rails_12factor'
+gem 'recaptcha', require: 'recaptcha/rails'
 
 gem 'webpacker', '~> 4.0'
 gem 'bootsnap', require: false
